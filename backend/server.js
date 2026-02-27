@@ -9,6 +9,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
+const aiRoutes = require("./routes/ai");
 PORT = process.env.PORT;
 URI = process.env.MONGOOSE_DEV_URI;
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 /* Use routes */
 app.use("/api/auth", authRoutes);
+app.use("/api/ai", aiRoutes);
 
 /* Connect to MongoDB */
 const mongooseConnect = async () => {
