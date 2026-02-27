@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const aiRoutes = require("./routes/ai");
+const { checkUser } = require("./middleware/authMiddleware");
 PORT = process.env.PORT;
 URI = process.env.MONGOOSE_DEV_URI;
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 /* Use routes */
+app.use(checkUser);
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 
