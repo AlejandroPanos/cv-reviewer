@@ -5,7 +5,7 @@ const aiControllers = require("../controllers/ai");
 const { requireAuth } = require("../middleware/authMiddleware");
 
 /* Create routes */
-router.post("/", aiControllers.generateReview);
+router.post("/", requireAuth, aiControllers.generateReview);
 
 /* Create export */
 module.exports = router;
