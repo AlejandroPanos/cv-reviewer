@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const Anthropic = require("@anthropic-ai/sdk");
+const { systemPrompt, userPrompt, assistantPrompt } = require("../helpers/scripts");
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -115,7 +116,10 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
     model: "claude-sonnet-4-5-20250929",
     max_tokens: 4096,
     system: systemPrompt,
-    messages: [{ role: "user", content: userPrompt(resumeText, jobDescriptionText) }],
+    messages: [
+      { role: "user", content: userPrompt(resumeText, jobDescriptionText) },
+      // { role: "assistant", content: assistantPrompt },
+    ],
     output_config: {
       format: {
         type: "json_schema",
@@ -125,7 +129,7 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
             overallAssessment: {
               type: "object",
               properties: {
-                score: { type: "number", minimum: 1, maximum: 100 },
+                score: { type: "number" },
                 text: { type: "string" },
               },
               required: ["score", "text"],
@@ -134,7 +138,7 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
             atsOptimization: {
               type: "object",
               properties: {
-                score: { type: "number", minimum: 1, maximum: 100 },
+                score: { type: "number" },
                 actionablePoints: {
                   type: "array",
                   items: { type: "string" },
@@ -146,7 +150,7 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
             impactQuantification: {
               type: "object",
               properties: {
-                score: { type: "number", minimum: 1, maximum: 100 },
+                score: { type: "number" },
                 actionablePoints: {
                   type: "array",
                   items: { type: "string" },
@@ -158,7 +162,7 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
             structureReadability: {
               type: "object",
               properties: {
-                score: { type: "number", minimum: 1, maximum: 100 },
+                score: { type: "number" },
                 actionablePoints: {
                   type: "array",
                   items: { type: "string" },
@@ -170,7 +174,7 @@ reviewSchema.statics.createReview = async function (userId, resumeText, jobDescr
             redFlags: {
               type: "object",
               properties: {
-                score: { type: "number", minimum: 1, maximum: 100 },
+                score: { type: "number" },
                 actionablePoints: {
                   type: "array",
                   items: { type: "string" },
