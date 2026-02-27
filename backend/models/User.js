@@ -6,7 +6,7 @@ const { isEmail } = require("validator");
 const crypto = require("crypto");
 
 /* Create schema */
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     name: {
       type: String,
@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 6 characters"],
       select: false,
     },
-    reviews: [reviewSchema],
     maxReviewsAllowed: {
       type: Number,
       default: 5,
@@ -47,12 +46,16 @@ userSchema.virtual("gravatarUrl").get(function () {
   return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=200`;
 });
 
-userSchema.virtual("reviewsRemaining").get(function () {
-  return this.maxReviewsAllowed - this.reviews.length;
-});
+userSchema.methods.getReviewsRemaining = async function () {
+  const Review = require("./Review");
+  const count = await Review.countDocuments({ userId: this._id });
+  return this.maxReviewsAllowed - count;
+};
 
-userSchema.methods.canGenerateReview = function () {
-  return this.reviews.length < this.maxReviewsAllowed;
+userSchema.methods.canGenerateReview = async function () {
+  const Review = require("./Review");
+  const count = await Review.countDocuments({ userId: this._id });
+  return count < this.maxReviewsAllowed;
 };
 
 userSchema.statics.register = async function (name, email, password) {
@@ -102,4 +105,5 @@ userSchema.pre("save", async function () {
 });
 
 /* Create export */
-module.exports = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = User;
