@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const authRoutes = require("./routes/auth");
 PORT = process.env.PORT;
 URI = process.env.MONGOOSE_DEV_URI;
 
@@ -16,7 +17,7 @@ const corsConfig = {
   origin: process.env.FRONTEND_URL || "http://localhost:5173",
   credentials: true,
 };
-app.options(cors(corsConfig));
+app.use(cors(corsConfig));
 
 /* Configure parsing middleware */
 app.use(bodyParser.urlencoded());
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 /* Use routes */
+app.use("/api/auth", authRoutes);
 
 /* Connect to MongoDB */
 const mongooseConnect = async () => {
