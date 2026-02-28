@@ -43,7 +43,7 @@ const ReviewData = ({ review }: ReviewDataProps) => {
                 <p>
                   You score was {review?.atsOptimization?.score}/100. Here are some suggestions:
                 </p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc list-inside">
                   {review?.atsOptimization?.actionablePoints.map((point, idx) => (
                     <li key={idx}>{point}</li>
                   ))}
@@ -59,7 +59,7 @@ const ReviewData = ({ review }: ReviewDataProps) => {
                   You score was {review?.impactQuantification?.score}/100. Here are some
                   suggestions:
                 </p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc list-inside">
                   {review?.impactQuantification?.actionablePoints.map((point, idx) => (
                     <li key={idx}>{point}</li>
                   ))}
@@ -75,7 +75,7 @@ const ReviewData = ({ review }: ReviewDataProps) => {
                   You score was {review?.structureReadability?.score}/100. Here are some
                   suggestions:
                 </p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc list-inside">
                   {review?.structureReadability?.actionablePoints.map((point, idx) => (
                     <li key={idx}>{point}</li>
                   ))}
@@ -88,7 +88,7 @@ const ReviewData = ({ review }: ReviewDataProps) => {
             <AccordionContent>
               <div className="flex flex-col items-start gap-4">
                 <p>You score was {review.redFlags?.score}/100. Here are some suggestions:</p>
-                <ul className="list-disc list-inside space-y-2">
+                <ul className="list-disc list-inside">
                   {review.redFlags?.actionablePoints.map((point, idx) => (
                     <li key={idx}>{point}</li>
                   ))}
