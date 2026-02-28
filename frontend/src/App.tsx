@@ -1,7 +1,12 @@
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router/dom";
+
+const router = createBrowserRouter([]);
+
 function App() {
   return (
     <>
-      <h1>App</h1>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
