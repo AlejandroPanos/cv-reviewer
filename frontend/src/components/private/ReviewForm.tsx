@@ -6,16 +6,19 @@ import ReviewData from "./ReviewData";
 import { useMutation } from "@tanstack/react-query";
 import { createReview } from "@/helpers/helpers";
 import { toast } from "sonner";
+import JSConfetti from "js-confetti";
 
 const ReviewForm = () => {
+  const jsConfetti = new JSConfetti();
+
   const reviewMutation = useMutation({
     mutationFn: createReview,
     onSuccess: () => {
-      toast.success("Review generated successfully!");
+      jsConfetti.addConfetti();
+      toast.success("Review generated successfully!", { position: "top-right" });
     },
     onError: (error) => {
-      console.log(error);
-      toast.error(error.message);
+      toast.error(error.message, { position: "top-right" });
     },
   });
 
