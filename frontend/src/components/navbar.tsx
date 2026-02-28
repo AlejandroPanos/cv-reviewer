@@ -3,9 +3,30 @@ import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
 import { NavigationSheet } from "@/components/navigation-sheet";
 import { useAuth } from "@/hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
+import { logout } from "@/helpers/helpers";
+import { toast } from "sonner";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, dispatch } = useAuth();
+  const navigate = useNavigate();
+
+  const logoutMutation = useMutation({
+    mutationFn: logout,
+    onSuccess: (data) => {
+      dispatch({ type: "LOGOUT" });
+      navigate("/");
+      toast.success(data?.msg, { position: "top-right" });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <nav className="h-16 border-b bg-background">
@@ -26,8 +47,8 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <Button asChild className="hidden sm:inline-flex" variant="outline">
-              <a href="/login">Logout</a>
+            <Button onClick={handleLogout} className="hidden sm:inline-flex" variant="outline">
+              Logout
             </Button>
           )}
 

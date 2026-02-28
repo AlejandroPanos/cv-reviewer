@@ -10,7 +10,7 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
   const { user } = useAuth();
 
   if (user) {
-    return <Navigate to="dashboard" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;
