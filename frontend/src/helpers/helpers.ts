@@ -16,6 +16,11 @@ interface LoginUser {
   password: string;
 }
 
+interface Review {
+  resumeText: string;
+  jobDescriptionText: string;
+}
+
 /* Create helpers */
 export const checkAuth = async () => {
   const response = await axios.get("/api/auth");
@@ -34,5 +39,10 @@ export const login = async (user: LoginUser) => {
 
 export const logout = async () => {
   const response = await axios.post("/api/auth/logout");
+  return response.data;
+};
+
+export const createReview = async (review: Review) => {
+  const response = await axios.post("/api/ai", review);
   return response.data;
 };

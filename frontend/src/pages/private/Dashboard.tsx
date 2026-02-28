@@ -1,7 +1,10 @@
+import PrivateHeader from "@/components/private/PrivateHeader";
+import ReviewForm from "@/components/private/ReviewForm";
 const Dashboard = () => {
   return (
     <>
-      <h1>Dashboard</h1>
+      <PrivateHeader />
+      <ReviewForm />
     </>
   );
 };

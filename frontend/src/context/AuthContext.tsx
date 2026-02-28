@@ -74,8 +74,6 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     return null;
   }
 
-  console.log("User:", state.user);
-
   return (
     <>
       <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>
