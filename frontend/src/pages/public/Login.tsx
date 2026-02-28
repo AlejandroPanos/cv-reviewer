@@ -17,7 +17,7 @@ const Login = () => {
     mutationFn: login,
     onSuccess: (data) => {
       console.log(data);
-      dispatch({ type: "REGISTER", payload: data });
+      dispatch({ type: "LOGIN", payload: data });
       navigate("/dashboard", { replace: true });
       toast.success(`Welcome back ${data?.name}!`, { position: "top-right" });
     },

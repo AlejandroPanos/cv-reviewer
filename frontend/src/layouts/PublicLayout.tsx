@@ -5,7 +5,9 @@ const PublicLayout = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main className="w-full mx-auto flex flex-col items-center gap-8 px-6 lg:px-8 py-8">
+        <Outlet />
+      </main>
     </>
   );
 };

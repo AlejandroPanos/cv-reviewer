@@ -40,7 +40,7 @@ const Navbar = () => {
           {!user ? (
             <>
               <Button asChild className="hidden sm:inline-flex" variant="outline">
-                <a href="/login">Sign In</a>
+                <a href="/login">Log In</a>
               </Button>
               <Button asChild>
                 <a href="/register">Get Started</a>
