@@ -66,7 +66,7 @@ const ReviewForm = () => {
             required
           />
         </div>
-        <Button className="w-full" type="submit">
+        <Button disabled={reviewMutation.isPending} className="w-full" type="submit">
           {reviewMutation.isPending ? "Analysing..." : "Check my CV"}
         </Button>
       </form>
